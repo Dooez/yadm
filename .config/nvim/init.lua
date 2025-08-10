@@ -16,7 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
--- require("lazy").setup()
 
 vim.o.conceallevel = 2
 vim.o.clipboard = 'unnamedplus'
