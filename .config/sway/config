@@ -199,10 +199,10 @@ bindsym --to-code $mod+Shift+r mode "resize"
 # Utilities:
 #
     # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
+    bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
+    bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+    bindsym --locked XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
@@ -248,6 +248,7 @@ for_window [app_id="pavuctorol"] floating enable;
 
 include /etc/sway/config.d/*
 exec systemctl --user set-environment EDITOR=nvim
+exec gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Yellow-Dark-Macchiato
 
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 exec sway-audio-idle-inhibit
