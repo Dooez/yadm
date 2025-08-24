@@ -1,0 +1,11 @@
+arch = [
+ "git",
+ "yadm",
+ "yay",
+ "metapac",
+
+ "base",
+ "grub",
+ "linux",
+ "linux-firmware",
+ ]

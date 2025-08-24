@@ -1,0 +1,6 @@
+arch = [
+ "clang",
+ "gcc",
+ "cmake",
+ "ninja-build",
+]

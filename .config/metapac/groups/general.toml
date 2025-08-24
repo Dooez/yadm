@@ -1,0 +1,17 @@
+arch = [
+ "zen-browser-bin",
+ "firefoxpwa",
+ "discord",
+ "telegram-desktop",
+ 
+ "remmina",
+ "freerdp",
+
+ "freecad-weekly-appimage",
+ "kicad",
+ "gimp",
+ "krita",
+ "inkscape",
+
+ "onlyoffice-bin",
+]

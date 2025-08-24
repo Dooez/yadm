@@ -1,0 +1,20 @@
+arch = [
+ "contour",
+ "ttf-jetbrains-mono-nerd",
+ "noto-fonts-cjk",
+ "noto-fonts-emoji",
+ "fish",
+ "starship",
+
+ "neovim",
+ "luarocks",
+ "npm",
+ "ripgrep",
+ "go",
+
+ "btop",
+ "yazi",
+ "unzip",
+ "unp",
+ "ueberzugpp",
+]
