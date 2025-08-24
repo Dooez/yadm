@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Switch Monitor Source(s)
+Comment=Quickly switch monitor source configuration(s)
+Exec=/home/marifey/.config/wofi/switch-monitor-sources.sh
+Terminal=false
+Type=Application
+Categories=System;Utility;
+Icon=display
