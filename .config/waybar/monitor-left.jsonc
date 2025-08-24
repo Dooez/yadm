@@ -1,0 +1,13 @@
+{
+    "output" : ["DP-1"],
+    "sway/workspaces":{
+        "persistent-workspaces" :{
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
+    }
+}
+

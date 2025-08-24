@@ -1,11 +1,15 @@
 arch = [
  "git",
  "yadm",
- "yay",
+ "yay-bin",
  "metapac",
 
  "base",
+ "base-devel",
  "grub",
  "linux",
  "linux-firmware",
+ "amd-ucode",
+ "efibootmgr",
+ "zram-generator",
  ]

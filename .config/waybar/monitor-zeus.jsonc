@@ -1,0 +1,10 @@
+{
+    "output" : ["HDMI-A-1"],
+    "sway/workspaces":{
+        "persistent-workspaces" :{
+            "t": [],
+            "y": [],
+        }
+    }
+}
+

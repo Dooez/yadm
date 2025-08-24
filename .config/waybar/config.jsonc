@@ -1,0 +1,70 @@
+// -*- mode: jsonc -*-
+[{
+    // Choose the order of the modules
+    "include" : [
+        "~/.config/waybar/monitor-left.jsonc",
+        "~/.config/waybar/default-modules.jsonc"
+    ],
+    "modules-right": [
+        "sway/workspaces",
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-left": [
+        "clock",
+        "battery",
+        "pulseaudio",
+        "idle_inhibitor",
+        "sway/language",
+        "custom/notification",
+        "tray",
+    ],
+},
+{
+    // Choose the order of the modules
+    "include" : [
+        "~/.config/waybar/monitor-right.jsonc",
+        "~/.config/waybar/default-modules.jsonc"
+    ],
+    "modules-left": [
+        "sway/workspaces",
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/notification",
+        "sway/language",
+        "idle_inhibitor",
+        "pulseaudio",
+        "cpu",
+        "battery",
+        "clock",
+    ],
+},
+{
+    // Choose the order of the modules
+    "include" : [
+        "~/.config/waybar/monitor-zeus.jsonc",
+        "~/.config/waybar/default-modules.jsonc"
+    ],
+    "modules-left": [
+        "sway/workspaces",
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/notification",
+        "sway/language",
+        "idle_inhibitor",
+        "pulseaudio",
+        "cpu",
+        "battery",
+        "clock",
+    ],
+}
+]
