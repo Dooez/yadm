@@ -23,7 +23,7 @@ set $menu wofi --show drun
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.themes/oil_sky.jpg fill
 
 set $outputl 'Xiaomi Corporation P27QBD-RG 4791210007933' 
 set $outputr 'Xiaomi Corporation P27QBA-RX 4959910002735' 
@@ -58,8 +58,8 @@ workspace 'y' output $outputz
 #
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' 
+          # before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -263,16 +263,20 @@ set $subtext1 #b3aca6
 
 client.focused $yellow $yellow $base $cborder $yellow
 client.unfocused $crust $crust $subtext1 $cborder $crust
+gaps bottom 3
+gaps left 2
+gaps right 2
 
 default_floating_border normal 2
 default_border pixel 2
-for_window [app_id="contour_btop"] floating enable;
+for_window [app_id="contour_btop"] floating enable; border pixel 2;
 for_window [app_id="blueman-manager"] floating enable;
-for_window [app_id="nmm-connection-editor"] floating enable;
-for_window [app_id="pavuctorol"] floating enable;
+for_window [app_id="nm-connection-editor"] floating enable;
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable;
 
 include /etc/sway/config.d/*
 exec systemctl --user set-environment EDITOR=nvim
+exec gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 exec gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Yellow-Dark-Macchiato
 
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
