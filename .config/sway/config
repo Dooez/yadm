@@ -32,7 +32,7 @@ set $outputz 'ZEU HDMI 0x00000055'
 
 output $outputl mode 2560x1440@165Hz pos 0 0 
 output $outputr mode 2560x1440@165Hz pos 2560 0 
-output $outputz mode 2560x1440@144Hz pos 2600 1440 scale 1.5
+output $outputz mode 2560x1600@144Hz pos 2600 1440 scale 1.5
 
 workspace 1 output $outputl
 workspace 2 output $outputl
