@@ -14,4 +14,8 @@ arch = [
  "inkscape",
 
  "onlyoffice-bin",
+
+ "catppuccin-whiskers-bin",
+ "gtk-engine-murrine",
+ "sassc",
 ]
