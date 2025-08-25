@@ -277,7 +277,7 @@ for_window [app_id="org.pulseaudio.pavucontrol"] floating enable;
 include /etc/sway/config.d/*
 exec systemctl --user set-environment EDITOR=nvim
 exec gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-exec gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Yellow-Dark-Macchiato
+exec gsettings set org.gnome.desktop.interface gtk-theme Timppuccin-Yellow-Dark-Macchiato
 
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 exec sway-audio-idle-inhibit
