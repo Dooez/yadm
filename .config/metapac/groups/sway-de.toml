@@ -15,6 +15,7 @@ arch = [
  "tlp",
  "tlp-rdw",
  "ddcutil",
+ "xorg-xwayland",
 
  "greetd",
  "greetd-tuigreet",

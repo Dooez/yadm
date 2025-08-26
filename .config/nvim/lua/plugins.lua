@@ -49,7 +49,7 @@ return {
                     style_preset = require('bufferline').style_preset.minimal,
                     always_show_bufferline = false,
                 },
-                highlights = require("catppuccin.groups.integrations.bufferline").get()
+                highlights = require("catppuccin.groups.integrations.bufferline").get_theme()
             })
         end
     },
