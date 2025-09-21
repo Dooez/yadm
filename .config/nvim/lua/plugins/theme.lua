@@ -37,6 +37,7 @@ return {
                 local string = colors.yellow
                 local fn = colors.green
                 local const = colors.mauve
+                local param = colors.peach
                 local iface = colors.rosewater
                 local member = colors.lavender
 
@@ -65,11 +66,14 @@ return {
                     Special = { fg = generic },
                     Type = { fg = class },
                     ['@module'] = { fg = colors.text, style = {} },
-                    ['@parameter'] = { fg = colors.peach, style = { 'italic' } },
+                    ['@variable.parameter'] = { fg = param, style = { 'bold' } },
+                    ['@parameter'] = { fg = param, style = { 'nocombine', 'italic' } },
                     ['@lsp.type.class'] = { fg = class },
                     ['@lsp.type.concept'] = { fg = iface },
                     ['@lsp.mod.readonly'] = { fg = const },
+                    ['@lsp.type.property'] = { fg = member },
                     ['@lsp.typemod.variable.static'] = { fg = member, style = { 'bold' } },
+                    ['@lsp.typemod.variable.globalScope'] = { style = { 'bold' } },
                     ['@lsp.typemod.method.readonly'] = { link = "@lsp.type.method" },
                     ['@lsp.typemod.parameter.readonly'] = { link = "@parameter" },
                     ['@function.builtin'] = { link = "Funciton" },

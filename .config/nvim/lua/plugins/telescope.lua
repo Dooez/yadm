@@ -28,11 +28,11 @@ return {
             require('telescope.builtin').git_files,
             desc = 'Search [G]it [F]iles',
         },
-        {
-            '<leader>sf',
-            require('telescope.builtin').find_files,
-            desc = '[S]earch [F]iles',
-        },
+        -- {
+        --     '<leader>sf',
+        --     require('telescope.builtin').find_files,
+        --     desc = '[S]earch [F]iles',
+        -- },
         {
             '<leader>sh',
             require('telescope.builtin').help_tags,

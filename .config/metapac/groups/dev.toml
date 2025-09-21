@@ -3,4 +3,5 @@ arch = [
  "gcc",
  "cmake",
  "ninja",
+ "rustup",
 ]
