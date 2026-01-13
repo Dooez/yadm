@@ -1,6 +1,6 @@
 return {
     'Civitasv/cmake-tools.nvim',
-    -- commit = 'd6fa30479c5f392f6f80b4b2e542f91155b289a8',
+    enabled = vim.g.have_cmake,
     dependencies = {
         "nvim-lua/plenary.nvim",
         'mfussenegger/nvim-dap',

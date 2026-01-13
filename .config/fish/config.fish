@@ -6,3 +6,4 @@ starship init fish | source
 
 alias vi nvim
 alias vim nvim
+set --global EDITOR nvim

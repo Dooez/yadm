@@ -618,7 +618,7 @@ color_schemes:
             green:   '#92BF8E' # green
             yellow:  '#D9B445' # yellow
             blue:    '#82A2D9' # blue
-            magenta: '#D68FB8' # pink
+            magenta: '#B394DE' # pink
             cyan:    '#4CBAA4' # teal
             white:   '#B3ACA6' # subtext1
         # Bright colors
@@ -628,7 +628,7 @@ color_schemes:
             green:   '#79b374' # green
             yellow:  '#b9993b' # yellow
             blue:    '#7092cc' # blue
-            magenta: '#b9749c' # pink
+            magenta: '#856fa5' # pink
             cyan:    '#3aa690' # teal
             white:   '#f7f2ed' # subtext1
     default: 

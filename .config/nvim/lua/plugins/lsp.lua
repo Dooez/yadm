@@ -38,12 +38,9 @@ return {
             servers = {
                 clangd = {},
                 -- gopls = {},
-                pyright = {},
+                basedpyright = {},
                 rust_analyzer = {},
-                -- tsserver = {},
-                -- html = { filetypes = { 'html', 'twig', 'hbs'} },
                 neocmake = {},
-                matlab_ls = {},
                 lua_ls = {
                     Lua = {
                         workspace = { checkThirdParty = false },
@@ -60,11 +57,32 @@ return {
                 lineFoldingOnly = true
             }
 
-            local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-            end
+            vim.diagnostic.config {
+                severity_sort = true,
+                float = { border = 'rounded', source = 'if_many' },
+                underline = { severity = vim.diagnostic.severity.ERROR },
+                signs = vim.g.have_nerd_font and {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = '󰅚 ',
+                        [vim.diagnostic.severity.WARN] = '󰀪 ',
+                        [vim.diagnostic.severity.INFO] = '󰋽 ',
+                        [vim.diagnostic.severity.HINT] = '󰌶 ',
+                    },
+                } or {},
+                virtual_text = {
+                    source = 'if_many',
+                    spacing = 2,
+                    format = function(diagnostic)
+                        local diagnostic_message = {
+                            [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                            [vim.diagnostic.severity.WARN] = diagnostic.message,
+                            [vim.diagnostic.severity.INFO] = diagnostic.message,
+                            [vim.diagnostic.severity.HINT] = diagnostic.message,
+                        }
+                        return diagnostic_message[diagnostic.severity]
+                    end,
+                },
+            }
 
             -- Floating window for renaming
             local rename_win
@@ -222,7 +240,6 @@ return {
                 end,
             })
             require('mason-lspconfig').setup {
-                ensure_installed = vim.tbl_keys(servers),
                 hanlders = {
                     function(server_name)
                         require('lspconfig')[server_name].setup {
@@ -240,55 +257,6 @@ return {
             local ls = require 'luasnip'
             require('luasnip.loaders.from_vscode').lazy_load()
             ls.config.setup {}
-            local s = ls.snippet
-            -- local sn = ls.snippet_node
-            -- local t = ls.text_node
-            local i = ls.insert_node
-            -- local f = ls.function_node
-            -- local c = ls.choice_node
-            -- local d = ls.dynamic_node
-            -- local r = ls.restore_node
-            local fmt = require("luasnip.extras.fmt").fmt
-            -- local rep = require("luasnip.extras").rep
-            ls.add_snippets("all", {
-                s("rangesnip",
-                    fmt(
-                        [=[
-                    using value_type = {1};
-                    using reference = value_type&;
-                    using const_reference = const value_type&;
-                    using size_type       = uZ;
-                    using difference_type = std::ptrdiff_t;
-                    using pointer         = value_type*;
-                    using const_pointer   = const value_type*;
-                    using iterator        = pointer;
-                    using const_iterator  = const_pointer;
-
-                    [[nodiscard]] auto data() noexcept -> pointer {{return m_data_ptr;}}
-                    [[nodiscard]] auto data() const noexcept -> const_pointer {{return m_data_ptr;}}
-                    [[nodiscard]] auto size() const noexcept -> size_type {{return m_size;}}
-                    [[nodiscard]] auto length() const noexcept -> size_type {{return size();}}
-
-                    [[nodiscard]] auto begin() noexcept -> iterator {{return data();}}
-                    [[nodiscard]] auto cbegin() const noexcept -> const_iterator {{return data();}}
-                    [[nodiscard]] auto begin() const noexcept -> const_iterator {{treturn data();}}
-                    [[nodiscard]] auto end() noexcept -> iterator {{return data() + size();}}
-                    [[nodiscard]] auto cend() const noexcept -> const_iterator {{return data() + size();}}
-                    [[nodiscard]] auto end() const noexcept -> const_iterator {{return cend();}}
-
-                    [[nodiscard]] auto operator[](size_type pos) noexcept -> reference {{return *(data() + pos);}}
-                    [[nodiscard]] auto operator[](size_type pos) const noexcept -> const_reference {{return *(data() + pos);}}
-                    [[nodiscard]] auto at(size_type pos) noexcept -> reference {{
-                    if (pos >= size()) throw std::out_of_range("pos >= size()");
-                    return *(data() + pos);
-                    }}
-                    ]=],
-                        {
-                            i(1, "T"),
-                        }
-                    )
-                ),
-            })
 
             cmp.setup {
                 snippet = {

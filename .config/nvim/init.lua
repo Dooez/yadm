@@ -2,90 +2,62 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath
-  }
-end
-vim.opt.rtp:prepend(lazypath)
+vim.g.have_nerd_font = true
+vim.g.have_yazi = true
+vim.g.have_cmake = true      -- false
+vim.g.have_dap = true        --false
+vim.g.have_node = true       -- false
+vim.g.have_cortex_dap = true -- false
+vim.g.perf_animate = true
 
-require("lazy").setup("plugins")
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.signcolumn = 'number'
 
-vim.o.conceallevel = 2
-vim.o.clipboard = 'unnamedplus'
--- Make line numbers default
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.wo.wrap = false
-vim.wo.foldlevel = 99
+vim.o.tabstop = 4
 
-vim.o.scrolloff = 8
-vim.o.startofline = true
-
--- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Enable break indent
-vim.o.breakindent = true
+vim.o.conceallevel = 2
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 
--- Save undo history
+vim.o.wrap = false
+vim.o.foldlevel = 99
+vim.o.scrolloff = 8
+vim.o.startofline = true
+vim.o.breakindent = true
 vim.o.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'number'
-
--- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+vim.o.inccommand = 'split'
+vim.o.cursorline = true
 
--- NOTE: You should make sure your terminal supports this
--- vim.o.termguicolors = true
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-
---vim.keymap.set('n', '<leader>z', 'zA', { desc = 'Toggle fold under cursor recureively' })
+vim.o.termguicolors = true
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'",
   { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'",
   { expr = true, silent = true })
--- Diagnostic keymaps
--- vim.keymap.set('n', '[3', vim.diagnostic.goto_prev,
---   { desc = 'Go to previous diagnostic message' })
--- vim.keymap.set('n', ']3', vim.diagnostic.goto_next,
---   { desc = 'Go to next diagnostic message' })
---vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
---{ desc = 'Open floating diagnostic message' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist,
---   { desc = 'Open diagnostics list' })
--- See `:help telescope.builtin`
--- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles,
---   { desc = '[?] Find recently opened files' })
-
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go to the left window' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go to the down window' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go to the up window' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to the right window' })
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
-
-vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -96,3 +68,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*'
 })
+
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
+    lazypath
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins")

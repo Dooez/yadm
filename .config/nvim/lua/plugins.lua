@@ -1,18 +1,16 @@
 return {
-    { -- dependencie managment
-        "williamboman/mason.nvim",
-        opts = {
-            pip = {
-                upgrade_pip = true,
-            }
-        }
-
+    {
+        'NMAC427/guess-indent.nvim', config = true,
     },
-    'tpope/vim-sleuth', -- automatic indent detection
-    {                   -- show pending keybinds
+    {
         'folke/which-key.nvim',
         event = "VeryLazy",
         opts = {}
+    },
+    {
+        "williamboman/mason.nvim",
+        opts = { pip = { upgrade_pip = true, }, }
+
     },
     {
         'nvim-treesitter/nvim-treesitter',
@@ -20,7 +18,8 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup({
                 ensure_installed = {
-                    'c', 'cpp', 'lua', 'doxygen', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'regex', 'bash',
+                    'c', 'cpp', 'lua', 'doxygen', 'vim', 'vimdoc', 'markdown', 'markdown_inline',
+                    'regex', 'bash',
                 },
                 sync_install = false,
                 auto_install = true,
@@ -31,12 +30,10 @@ return {
             })
         end
     },
-    { -- save files as sudo
-        "Grafcube/suedit.nvim",
+    {
+        "https://codeberg.org/grafcube/suedit.nvim",
         dependencies = "akinsho/toggleterm.nvim",
     },
-
-
     -- special buffers
     { -- tabs line
         'akinsho/bufferline.nvim',
@@ -49,40 +46,20 @@ return {
                     style_preset = require('bufferline').style_preset.minimal,
                     always_show_bufferline = false,
                 },
-                highlights = require("catppuccin.groups.integrations.bufferline").get_theme()
+                highlights = require("catppuccin.special.bufferline").get_theme()
             })
         end
     },
-    { --
-        "folke/trouble.nvim",
-        cmd = "Trouble",
-        opts = {
-            focus = true,
-            auto_close = true,
-            modes = {
-                lsp_references = {
-                    title = false,
-                    format = "{file_icon}{filename} {pos} {text:ts}",
-                    groups = false,
-                }
-            },
-            keys = {
-                ["<cr>"] = "jump_close"
-            }
-        },
-        keys = {
-            {
-                "<leader>Q",
-                "<cmd>Trouble diagnostics focus=true<cr>",
-                desc = "Diagnostics"
-            }
-        }
-    },
     { -- filesystem explorer
         'stevearc/oil.nvim',
-        -- Optional dependencies
-        dependencies = {
-            "nvim-tree/nvim-web-devicons"
+        event = "VeryLazy",
+        enabled = not vim.g.have_yazi,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        keys = {
+            "<leader>e",
+            mode = { "n", "v" },
+            "<cmd>Oil<cr>",
+            desc = "Open Oil at the current file.",
         },
         opts = {
             default_file_explorer = true,
@@ -102,14 +79,54 @@ return {
             },
             experimental_watch_for_changes = true,
         },
-        config = function(plugin, opts)
-            require('oil').setup(opts)
-            vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = 'Open Oil.' })
-        end,
-
+        config = true,
     },
-
-
+    {
+        "mikavilpas/yazi.nvim",
+        enabled = vim.g.have_yazi,
+        event = "VeryLazy",
+        dependencies = {
+            { "nvim-lua/plenary.nvim", lazy = true },
+        },
+        keys = {
+            {
+                "<leader>e",
+                mode = { "n", "v" },
+                "<cmd>Yazi<cr>",
+                desc = "Open yazi at the current file",
+            },
+            {
+                -- Open in the current working directory
+                "<leader>cw",
+                "<cmd>Yazi cwd<cr>",
+                desc = "Open the file manager in nvim's working directory",
+            },
+            {
+                "<c-up>",
+                "<cmd>Yazi toggle<cr>",
+                desc = "Resume the last yazi session",
+            },
+        },
+        opts = {
+            -- if you want to open yazi instead of netrw, see below for more info
+            open_for_directories = true,
+            yazi_floating_window_border = "single",
+            keymaps = {
+                show_help = "g?",
+            },
+        },
+        init = function()
+            vim.g.loaded_netrwPlugin = 1
+        end,
+    },
+    {
+        "sohanemon/flash.yazi",
+        enabled = vim.g.have_yazi,
+        lazy = true,
+        build = function(plugin)
+            require("yazi.plugin").build_plugin(plugin)
+        end,
+    },
     -- editing and navigtaion
     {
         'echasnovski/mini.ai',
@@ -154,12 +171,11 @@ return {
         keys = {
             { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
             { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-            { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+            { "r",     mode = { "o" },           function() require("flash").remote() end,            desc = "Remote Flash" },
             { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
             { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
         },
     },
-
 
     -- visual
     { -- context folds at the top of the buffer
@@ -179,7 +195,6 @@ return {
         },
         opts = {},
     },
-
     'RRethy/vim-illuminate', -- highlight word under the cursor
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -187,6 +202,7 @@ return {
         opts = {
             indent = {
                 char = '┆',
+                tab_char = '┆',
             },
             scope = {
                 char = '║',
@@ -195,24 +211,18 @@ return {
             },
         }
     },
-    { -- scrolling animation
+    {
         'echasnovski/mini.animate',
         version = false,
+        enabled = not vim.g.perf_animate,
         config = function()
-            local animate = require('mini.animate')
-            local qdtiming = require('mini.animate').gen_timing.quadratic(
-                {
-                    duration = 150,
-                    unit = 'total',
-                }
-            )
-            animate.setup({
-                cursor = {
-                    timing = qdtiming
-                },
-                scroll = {
-                    timing = qdtiming
-                },
+            local qdtiming = require('mini.animate').gen_timing.quadratic({
+                duration = 150,
+                unit = 'total',
+            })
+            require('mini.animate').setup({
+                cursor = { timing = qdtiming },
+                scroll = { timing = qdtiming },
                 resize = { enable = false },
                 open = { enable = false },
                 close = { enable = false },
@@ -220,24 +230,24 @@ return {
         end,
     },
     {
-        'jedrzejboczar/nvim-dap-cortex-debug',
-        dependencies = {
-            'mfussenegger/nvim-dap'
+        'gen740/SmoothCursor.nvim',
+        enabled = vim.g.perf_animate,
+        opts = {
+            fancy = {
+                enable = true,
+                head = false,
+                body = {
+                    { cursor = "󰝥", texthl = "lineHl" },
+                    { cursor = "󰝥", texthl = "lineHl" },
+                    { cursor = "●", texthl = "lineHl" },
+                    { cursor = "●", texthl = "lineHl" },
+                    { cursor = "•", texthl = "lineHl" },
+                    { cursor = ".", texthl = "lineHl" },
+                    { cursor = ".", texthl = "lineHl" },
+                },
+                speed = 100,
+            },
         },
-        -- commit = "6056de8f90736e62e318537e4415eab351487611",
-        config = function()
-            require('dap-cortex-debug').setup {
-                debug = false, -- log debug messages
-                -- path to cortex-debug extension, supports vim.fn.glob
-                -- by default tries to guess: mason.nvim or VSCode extensions
-                extension_path = nil,
-                lib_extension = nil, -- shared libraries extension, tries auto-detecting, e.g. 'so' on unix
-                node_path = 'node',  -- path to node.js executable
-                dapui_rtt = true,    -- register nvim-dap-ui RTT element
-                -- make :DapLoadLaunchJSON register cortex-debug for C/C++, set false to disable
-                dap_vscode_filetypes = { 'c', 'cpp' },
-            }
-        end
     },
     {
         "OXY2DEV/markview.nvim",
@@ -285,35 +295,6 @@ return {
         config = function()
             require 'window-picker'.setup()
         end,
-    },
-    {
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        lazy = false,
-        opts = {},
-        keys = {
-            {
-                "<leader>rx",
-                mode = { "x" },
-                ":Refactor extract ",
-                desc = "[R]efactor E[x]tract",
-            },
-            {
-                "<leader>rxv",
-                mode = { "x" },
-                ":Refactor extract_var ",
-                desc = "[R]efactor E[x]tract [V]ariable",
-            },
-            {
-                "<leader>ri",
-                mode = { "n", "x" },
-                ":Refactor inline_func",
-                desc = "[R]efactor [I]nline function",
-            },
-        },
     },
     {
         'brenoprata10/nvim-highlight-colors',

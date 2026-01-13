@@ -271,6 +271,7 @@ gaps right 2
 default_floating_border normal 2
 default_border pixel 2
 for_window [app_id="contour_btop"] floating enable; border pixel 2;
+for_window [app_id="AmneziaVPN"] floating enable; border pixel 2;
 for_window [app_id="blueman-manager"] floating enable;
 for_window [app_id="nm-connection-editor"] floating enable;
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable;
