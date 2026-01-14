@@ -2,13 +2,18 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+local check_env = function(var)
+  return vim.env[var] ~= nil and vim.env[var] ~= 0
+end
+
 vim.g.have_nerd_font = true
-vim.g.have_yazi = true
-vim.g.have_cmake = true      -- false
-vim.g.have_dap = true        --false
-vim.g.have_node = true       -- false
-vim.g.have_cortex_dap = true -- false
-vim.g.perf_animate = true
+vim.g.have_yazi = vim.fn.executable('yazi') == 1
+vim.g.have_cmake = vim.fn.executable('cmake') == 1
+vim.g.have_dap = check_env("NVIM_DAP")
+vim.g.have_node = vim.fn.executable('node') == 1
+vim.g.have_cortex_dbg = vim.g.have_node and check_env("NVIM_CORTEX_DBG")
+vim.g.have_rustup = vim.fn.executable('rustup') == 1
+vim.g.perf_animate = not check_env("NVIM_ANIMATE")
 
 vim.o.number = true
 vim.o.relativenumber = true

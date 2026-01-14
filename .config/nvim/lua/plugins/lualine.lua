@@ -6,19 +6,19 @@ return {
     },
     config = function()
         local lualine = require('lualine')
-        local conditions = {
-            buffer_not_empty = function()
-                return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-            end,
-            hide_in_width = function()
-                return vim.fn.winwidth(0) > 80
-            end,
-            check_git_workspace = function()
-                local filepath = vim.fn.expand('%:p:h')
-                local gitdir = vim.fn.finddir('.git', filepath .. ';')
-                return gitdir and #gitdir > 0 and #gitdir < #filepath
-            end,
-        }
+        -- local conditions = {
+        --     buffer_not_empty = function()
+        --         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+        --     end,
+        --     hide_in_width = function()
+        --         return vim.fn.winwidth(0) > 80
+        --     end,
+        --     check_git_workspace = function()
+        --         local filepath = vim.fn.expand('%:p:h')
+        --         local gitdir = vim.fn.finddir('.git', filepath .. ';')
+        --         return gitdir and #gitdir > 0 and #gitdir < #filepath
+        --     end,
+        -- }
         local statusline = require('arrow.statusline')
         local arrow_fmt = function()
             local empty = '·'
@@ -53,7 +53,7 @@ return {
                 end
             end
             if n_empty > 0 then
-                for i = 1, n_empty - 1, 1 do
+                for _ = 1, n_empty - 1, 1 do
                     format = format .. empty .. ' '
                 end
                 format = format .. empty
@@ -68,7 +68,6 @@ return {
                 theme = 'catppuccin',
             },
             sections = {
-                -- these are to remove the defaults
                 lualine_a = {
                     'mode',
                 },
@@ -83,32 +82,22 @@ return {
                     },
                     {
                         'filename',
-                        -- separator = '',
                         icons_enabled = true,
                         cond = function()
                             return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
                         end
                     },
-                    -- {
-                    --    function()
-                    --       return navic.get_location()
-                    --    end,
-                    --    cond = function()
-                    --       return navic.is_available()
-                    --    end
-                    -- }
                 },
-                lualine_x = {
-                },
+                lualine_x = {},
                 lualine_y = {
                     {
                         'diagnostics',
                         sources = { 'nvim_diagnostic', 'nvim_lsp' },
                         sections = { 'error', 'warn', 'info', 'hint' },
                     },
-                    'progress' },
-                lualine_z = {
+                    'progress',
                 },
+                lualine_z = {},
             },
         }
         lualine.setup(config)

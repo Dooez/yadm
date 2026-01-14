@@ -146,7 +146,7 @@ return {
                     stopOnEntry = false,
                 },
             }
-            if vim.g.have_cortex_dap then
+            if vim.g.have_cortex_dbg then
                 local get_cmake_target_elf = function()
                     local cmake_found, cmake = pcall(require, 'cmake-tools')
                     if not cmake_found then
@@ -183,7 +183,7 @@ return {
     },
     {
         'jedrzejboczar/nvim-dap-cortex-debug',
-        enabled = vim.g.have_dap and vim.g.have_cortex_dap,
+        enabled = vim.g.have_dap and vim.g.have_cortex_dbg,
         dependencies = {
             'mfussenegger/nvim-dap'
         },

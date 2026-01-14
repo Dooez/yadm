@@ -87,6 +87,7 @@ return {
         event = "VeryLazy",
         dependencies = {
             { "nvim-lua/plenary.nvim", lazy = true },
+            'folke/snacks.nvim',
         },
         keys = {
             {
@@ -120,7 +121,8 @@ return {
         end,
     },
     {
-        "sohanemon/flash.yazi",
+        -- "sohanemon/flash.yazi",
+        "Dooez/flash.yazi",
         enabled = vim.g.have_yazi,
         lazy = true,
         build = function(plugin)
@@ -319,6 +321,29 @@ return {
                 delete_mode = 'D',
             }
         },
+        config = function(_, opts)
+            require('arrow').setup(opts)
+            local open = function(file_index)
+                local fileName = vim.g.arrow_filenames[file_index]
+                if not fileName then return end
+                local config = require("arrow.config")
+                local action = config.getState("open_action")
+                if
+                    config.getState("global_bookmarks") == true
+                    or config.getState("save_key_name") == "cwd"
+                    or config.getState("save_key_name") == "git_root_bare"
+                then
+                    action(fileName, vim.b.filename)
+                else
+                    action(config.getState("save_key_cached") .. "/" .. fileName, vim.b.filename)
+                end
+            end
+            vim.keymap.set('n', '<F11>', function() open(1) end, { desc = 'Open arrow entry 1.' })
+            vim.keymap.set('n', '<F12>', function() open(2) end, { desc = 'Open arrow entry 2.' })
+            vim.keymap.set('n', '<F13>', function() open(3) end, { desc = 'Open arrow entry 3.' })
+            vim.keymap.set('n', '<F14>', function() open(4) end, { desc = 'Open arrow entry 4.' })
+            vim.keymap.set('n', '<F15>', function() open(5) end, { desc = 'Open arrow entry 5.' })
+        end,
     },
 
 }

@@ -175,16 +175,16 @@ return {
                     --nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
                     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-                    map('gd', '<cmd>Trouble lsp_definitions<cr>', '[G]oto [D]efinition')
-                    map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+                    -- map('gd', '<cmd>Trouble lsp_definitions<cr>', '[G]oto [D]efinition')
+                    -- map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-                    map('gr', '<cmd>Trouble lsp_references<cr>', '[G]oto [R]eferences')
-                    map('gI', '<cmd>Trouble lsp_implementations<cr>', '[G]oto [I]mplementation')
+                    -- map('gr', '<cmd>Trouble lsp_references<cr>', '[G]oto [R]eferences')
+                    -- map('gI', '<cmd>Trouble lsp_implementations<cr>', '[G]oto [I]mplementation')
 
                     -- nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-                    map('<leader>ss', require('telescope.builtin').lsp_document_symbols, '[S]earch [S]ymbols')
-                    map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols,
-                        '[S]earch [W]orkspace Symbols')
+                    -- map('<leader>ss', require('telescope.builtin').lsp_document_symbols, '[S]earch [S]ymbols')
+                    -- map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols,
+                    --     '[S]earch [W]orkspace Symbols')
 
                     -- See `:help K` for why this keymap
                     map('K', vim.lsp.buf.hover, 'Hover Documentation')

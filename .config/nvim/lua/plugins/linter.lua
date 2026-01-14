@@ -31,17 +31,4 @@ return {
             })
         end,
     },
-    {
-        "rshkarin/mason-nvim-lint",
-        enabled = false,
-        dependencies = {
-            "mfussenegger/nvim-lint",
-        },
-        opts = {
-            ensure_installed = {
-                'luacheck',
-            },
-            automatic_installation = false,
-        },
-    },
 }
