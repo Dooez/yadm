@@ -11,3 +11,9 @@ unset_alt = {fg = "red", bg = "darkgrey"}
 
 [indicator]
 padding  = {open= "█", close= "█"}
+
+[tabs]
+sep_inner  = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+inactive = {fg = "blue", bg = "darkgrey"}
+active = {fg = "black", bg = "blue"}
